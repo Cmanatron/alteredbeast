@@ -1,0 +1,147 @@
+[gd_scene load_steps=10 format=3 uid="uid://dl22ij4x2xev4"]
+
+[ext_resource type="Script" uid="uid://dk4pirtiljgeg" path="res://animal.gd" id="1_stvu6"]
+[ext_resource type="Texture2D" uid="uid://dbapc4cbap015" path="res://icon.svg" id="2_23vr7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_23vr7"]
+size = Vector2(7.75, 5.95)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ifcgm"]
+size = Vector2(45, 73)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ifcgm"]
+radius = 22.0227
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_23vr7"]
+radius = 31.0161
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_suy7h"]
+size = Vector2(83, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_riyer"]
+size = Vector2(202, 148)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bj4fw"]
+size = Vector2(1172, 20)
+
+[node name="Animal" type="Node2D"]
+
+[node name="Body" type="CharacterBody2D" parent="."]
+motion_mode = 1
+script = ExtResource("1_stvu6")
+
+[node name="BodyShape" type="CollisionShape2D" parent="Body"]
+position = Vector2(247.5, 230.5)
+scale = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_23vr7")
+
+[node name="Sprite2D" type="Sprite2D" parent="Body/BodyShape"]
+position = Vector2(0.0750006, -0.6125)
+scale = Vector2(0.065625, 0.0357422)
+texture = ExtResource("2_23vr7")
+
+[node name="FrontLegs" type="RigidBody2D" parent="Body"]
+position = Vector2(318, 249)
+contact_monitor = true
+max_contacts_reported = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/FrontLegs"]
+position = Vector2(3, 49)
+shape = SubResource("RectangleShape2D_ifcgm")
+
+[node name="Sprite2D" type="Sprite2D" parent="Body/FrontLegs/CollisionShape2D"]
+position = Vector2(-7.62939e-06, 2)
+scale = Vector2(0.351563, 0.595703)
+texture = ExtResource("2_23vr7")
+
+[node name="HurtBox" type="Area2D" parent="Body/FrontLegs/CollisionShape2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/FrontLegs/CollisionShape2D/HurtBox"]
+position = Vector2(0, 31)
+shape = SubResource("CircleShape2D_ifcgm")
+
+[node name="DampedSpringJoint2D" type="PinJoint2D" parent="Body/FrontLegs"]
+position = Vector2(6, 12)
+node_a = NodePath("../..")
+node_b = NodePath("..")
+bias = 0.9
+angular_limit_enabled = true
+angular_limit_lower = -3.14159
+
+[node name="BackLegs" type="RigidBody2D" parent="Body"]
+position = Vector2(198, 251)
+contact_monitor = true
+max_contacts_reported = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/BackLegs"]
+position = Vector2(-17, 51)
+shape = SubResource("RectangleShape2D_ifcgm")
+
+[node name="Sprite2D" type="Sprite2D" parent="Body/BackLegs/CollisionShape2D"]
+position = Vector2(1, 1)
+scale = Vector2(0.351563, 0.595703)
+texture = ExtResource("2_23vr7")
+
+[node name="HurtBox" type="Area2D" parent="Body/BackLegs/CollisionShape2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/BackLegs/CollisionShape2D/HurtBox"]
+position = Vector2(0, 31)
+shape = SubResource("CircleShape2D_ifcgm")
+
+[node name="DampedSpringJoint2D" type="PinJoint2D" parent="Body/BackLegs"]
+position = Vector2(-18, 10)
+node_a = NodePath("../..")
+node_b = NodePath("..")
+bias = 0.9
+angular_limit_enabled = true
+angular_limit_upper = 3.14159
+
+[node name="Head" type="RigidBody2D" parent="Body"]
+position = Vector2(357, 169)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/Head"]
+shape = SubResource("CircleShape2D_23vr7")
+
+[node name="Sprite2D" type="Sprite2D" parent="Body/Head/CollisionShape2D"]
+position = Vector2(-0.250007, -0.25)
+scale = Vector2(0.433594, 0.410156)
+texture = ExtResource("2_23vr7")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Body/Head"]
+position = Vector2(-29, 13)
+node_a = NodePath("../..")
+node_b = NodePath("..")
+bias = 0.9
+angular_limit_enabled = true
+angular_limit_lower = 1.5708
+
+[node name="Tail" type="RigidBody2D" parent="Body"]
+position = Vector2(133, 172)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/Tail"]
+position = Vector2(-3.5, 0)
+shape = SubResource("RectangleShape2D_suy7h")
+
+[node name="Sprite2D" type="Sprite2D" parent="Body/Tail/CollisionShape2D"]
+position = Vector2(-1.5, 0.5)
+scale = Vector2(0.6875, 0.210937)
+texture = ExtResource("2_23vr7")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Body/Tail"]
+position = Vector2(38, 1)
+node_a = NodePath("../..")
+node_b = NodePath("..")
+bias = 0.9
+
+[node name="Hitbox" type="Area2D" parent="Body"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/Hitbox"]
+position = Vector2(248, 234)
+shape = SubResource("RectangleShape2D_riyer")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(-3, 412)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(576, 0)
+shape = SubResource("RectangleShape2D_bj4fw")
