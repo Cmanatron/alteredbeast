@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://dpmtt30ow51oj"]
+
+[ext_resource type="Script" uid="uid://c0hic2jdjb0rg" path="res://startgame.gd" id="1_06t4h"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_06t4h")
+
+[node name="Container" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 520.0
+offset_top = 8.0
+offset_right = 641.0
+offset_bottom = 101.0
+
+[node name="Label" type="Label" parent="Container"]
+layout_mode = 2
+text = "ALTERED BEAST"
+
+[node name="Button" type="Button" parent="Container"]
+layout_mode = 2
+text = "PLAY GAME"
+
+[node name="Button2" type="Button" parent="Container"]
+layout_mode = 2
+text = "QUIT"
+
+[connection signal="pressed" from="Container/Button" to="." method="_on_button_pressed"]

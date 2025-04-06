@@ -1,14 +1,43 @@
-[gd_scene load_steps=4 format=3 uid="uid://da5rvyn8sy20h"]
+[gd_scene load_steps=7 format=3 uid="uid://da5rvyn8sy20h"]
 
 [ext_resource type="PackedScene" uid="uid://dl22ij4x2xev4" path="res://animal.tscn" id="1_vonw3"]
 [ext_resource type="Script" uid="uid://2b1ql6cayuyv" path="res://Player.gd" id="2_0b4ue"]
 [ext_resource type="PackedScene" uid="uid://cn85exy5o5y5r" path="res://enemy.tscn" id="2_oi3di"]
+[ext_resource type="Script" uid="uid://b7slsnydsgt7n" path="res://EnemyAI.gd" id="4_0b4ue"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0b4ue"]
+size = Vector2(20, 666)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f2txt"]
+size = Vector2(1162, 20)
 
 [node name="Level" type="Node2D"]
+position = Vector2(0, 1)
 
 [node name="Player" parent="." instance=ExtResource("1_vonw3")]
-position = Vector2(1, 0)
 script = ExtResource("2_0b4ue")
 
-[node name="Enemy" parent="." instance=ExtResource("2_oi3di")]
-position = Vector2(558, 2)
+[node name="Op" parent="." instance=ExtResource("2_oi3di")]
+position = Vector2(558, 3)
+script = ExtResource("4_0b4ue")
+
+[node name="Wall1" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall1"]
+position = Vector2(0, 323)
+scale = Vector2(1.01122, 0.996138)
+shape = SubResource("RectangleShape2D_0b4ue")
+
+[node name="Wall2" type="StaticBody2D" parent="Wall1"]
+position = Vector2(1144, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall1/Wall2"]
+position = Vector2(0, 323)
+scale = Vector2(1.01122, 0.996138)
+shape = SubResource("RectangleShape2D_0b4ue")
+
+[node name="Floor" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+position = Vector2(571, 648)
+shape = SubResource("RectangleShape2D_f2txt")

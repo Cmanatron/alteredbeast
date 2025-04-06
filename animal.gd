@@ -130,17 +130,24 @@ func _physics_process(delta):
 		
 	else:
 		ySpeed += slowY
-		if(speed >=0):
-			speed -= slowX
-		else:
-			speed +=slowX
+	
+	if(speed >=0):
+		speed -= slowX
+	else:
+		speed +=slowX
 		
 		#print('No Contact');
 		
 	move_and_slide()
+	if(health ==0 ):
+		get_tree().change_scene_to_file("res://intermission.tscn")
 
 
-func _on_hurt_box_area_entered(area: Area2D) -> void:
-	if area.is_in_group("Enemy"):
-		print('Damage Taken Player')
-	health -= 1;
+
+
+
+func _on_hh_urtbox_area_entered(area: Area2D) -> void:
+	if(area.is_in_group("Enemy")):
+		print("PlayerH")
+		health -=1
+			

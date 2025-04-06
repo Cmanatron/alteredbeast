@@ -17,13 +17,12 @@ radius = 23.0217
 [sub_resource type="CircleShape2D" id="CircleShape2D_23vr7"]
 radius = 31.0161
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_iifgy"]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_suy7h"]
 size = Vector2(83, 20)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_riyer"]
-size = Vector2(321, 174)
-
-[node name="Animal" type="Node2D"]
+[node name="Animal" type="Node2D" groups=["Enemy"]]
 
 [node name="Body" type="CharacterBody2D" parent="." groups=["Enemy"]]
 script = ExtResource("1_4gyqm")
@@ -38,12 +37,12 @@ position = Vector2(0, -1.3)
 scale = Vector2(0.185393, 0.154386)
 texture = ExtResource("2_iifgy")
 
-[node name="FrontLegs" type="RigidBody2D" parent="Body"]
+[node name="FrontLegs" type="RigidBody2D" parent="Body" groups=["Enemy"]]
 position = Vector2(318, 249)
 contact_monitor = true
 max_contacts_reported = 5
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/FrontLegs"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/FrontLegs" groups=["Enemy"]]
 position = Vector2(3, 49)
 shape = SubResource("RectangleShape2D_ifcgm")
 
@@ -58,7 +57,7 @@ angular_limit_enabled = true
 angular_limit_lower = -3.14159
 motor_target_velocity = 0.846136
 
-[node name="FHBox" type="Area2D" parent="Body/FrontLegs"]
+[node name="FHBox" type="Area2D" parent="Body/FrontLegs" groups=["Enemy"]]
 position = Vector2(3, 82)
 collision_layer = 4
 collision_mask = 4
@@ -115,6 +114,15 @@ angular_limit_lower = -1.5708
 motor_enabled = true
 motor_target_velocity = 3.49066
 
+[node name="HHUrtbox" type="Area2D" parent="Body/Head" groups=["Enemy"]]
+scale = Vector2(1.28, 1.28)
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/Head/HHUrtbox" groups=["Enemy"]]
+scale = Vector2(3.56, 3.56)
+shape = SubResource("CircleShape2D_iifgy")
+
 [node name="Tail" type="RigidBody2D" parent="Body"]
 position = Vector2(387, 166)
 
@@ -135,13 +143,5 @@ bias = 0.9
 motor_enabled = true
 motor_target_velocity = 3.49066
 
-[node name="HurtBox" type="Area2D" parent="Body"]
-position = Vector2(176, 193)
-collision_layer = 4
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/HurtBox"]
-position = Vector2(80.5, 37)
-shape = SubResource("RectangleShape2D_riyer")
-
-[connection signal="area_entered" from="Body/HurtBox" to="Body" method="_on_hurt_box_area_entered"]
+[connection signal="body_entered" from="Body/Head" to="Body" method="_on_head_body_entered"]
+[connection signal="area_entered" from="Body/Head/HHUrtbox" to="Body" method="_on_hh_urtbox_area_entered"]

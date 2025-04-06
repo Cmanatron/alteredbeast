@@ -2,8 +2,8 @@ extends CharacterBody2D
 #var bContacts = [];
 #var fContacts = [];
 @onready var domJoint = $FrontLegs/FJoint
-@export var speed = -300
-@export var ySpeed = 0
+@export var speed = 300
+@export var ySpeed = 400
 var animalID = [0,0,0,0,0]
 
 
@@ -16,7 +16,7 @@ var slowX = 10
 var slowY = 10
 var damage = 1
 var atk = false
-var health = 3;
+var health = 10;
 
 func _ready() -> void:
 	add_to_group("Enemy")
@@ -116,49 +116,48 @@ func get_input():
 	
 func _physics_process(delta):
 	
-
 	
-	print(Player.instance.get_node('Body').position.x)
+	if(velocity.y == 0):
+		ySpeed = 300
 	
-	
-	
-	if(velocity.x < 10 && $BackLegs.get_contact_count()>2):
-		ySpeed = -400
 	
 	$Head.rotation = 0;
 	#print('Moving')
 	#get_input()
+	
+	if($FrontLegs.get_contact_count()!=0 && $BackLegs.get_contact_count()!=0):
+		ySpeed=300
+	
 	velocity.x = speed
 	velocity.y = ySpeed
 	
-	$BackLegs.angular_velocity = randi_range(-90,90)
+	$BackLegs.angular_velocity = 90
 	
 	if($FrontLegs.get_colliding_bodies().has($Floor)):
-		ySpeed =0 
-		print('Contact')
-	if($BackLegs.get_colliding_bodies().has($Floor)):
-		ySpeed =0 
-		print('Contact')
-	
-	
-	
+		ySpeed = 300;
 		
 	else:
 		ySpeed += slowY
-		if(speed >=0):
-			speed -= slowX
-		else:
-			speed +=slowX
+	
+	if(speed >=0):
+		speed += slowX
+	else:
+		speed +=slowX
 		
 		#print('No Contact');
 	if(health ==0 ):
 		get_tree().change_scene_to_file("res://intermission.tscn")
-		
+	
+	
+	
+	
 	move_and_slide()
 
 
-func _on_hurt_box_area_entered(area: Area2D) -> void:
-	if area.is_in_group("Player"):
-		print('Damage Taken Enemy')
-		health -= 1;
-		
+
+
+func _on_hh_urtbox_area_entered(area: Area2D) -> void:
+	if(area.is_in_group("Player")):
+		print("EnemyH")
+		health -=1
+	

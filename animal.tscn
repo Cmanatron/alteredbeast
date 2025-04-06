@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dl22ij4x2xev4"]
+[gd_scene load_steps=12 format=3 uid="uid://dl22ij4x2xev4"]
 
 [ext_resource type="Script" uid="uid://dk4pirtiljgeg" path="res://animal.gd" id="1_stvu6"]
 [ext_resource type="Texture2D" uid="uid://dbapc4cbap015" path="res://icon.svg" id="2_23vr7"]
@@ -18,18 +18,14 @@ radius = 23.0217
 [sub_resource type="CircleShape2D" id="CircleShape2D_23vr7"]
 radius = 31.0161
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_bj4fw"]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_suy7h"]
 size = Vector2(83, 20)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_riyer"]
-size = Vector2(188, 110)
+[node name="Animal" type="Node2D" groups=["Player"]]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bj4fw"]
-size = Vector2(1172, 20)
-
-[node name="Animal" type="Node2D"]
-
-[node name="Body" type="CharacterBody2D" parent="."]
+[node name="Body" type="CharacterBody2D" parent="." groups=["Player"]]
 motion_mode = 1
 script = ExtResource("1_stvu6")
 
@@ -42,12 +38,12 @@ shape = SubResource("RectangleShape2D_23vr7")
 scale = Vector2(0.00932736, 0.00932736)
 texture = ExtResource("2_bj4fw")
 
-[node name="FrontLegs" type="RigidBody2D" parent="Body"]
+[node name="FrontLegs" type="RigidBody2D" parent="Body" groups=["Player"]]
 position = Vector2(318, 249)
 contact_monitor = true
 max_contacts_reported = 5
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/FrontLegs"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/FrontLegs" groups=["Player"]]
 position = Vector2(3, 49)
 shape = SubResource("RectangleShape2D_ifcgm")
 
@@ -65,12 +61,12 @@ angular_limit_enabled = true
 angular_limit_lower = -3.14159
 motor_target_velocity = 0.846136
 
-[node name="FHBox" type="Area2D" parent="Body/FrontLegs"]
+[node name="FHBox" type="Area2D" parent="Body/FrontLegs" groups=["Player"]]
 position = Vector2(3, 82)
 collision_layer = 4
 collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/FrontLegs/FHBox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/FrontLegs/FHBox" groups=["Player"]]
 shape = SubResource("CircleShape2D_ifcgm")
 
 [node name="BackLegs" type="RigidBody2D" parent="Body"]
@@ -124,6 +120,15 @@ angular_limit_lower = -1.5708
 motor_enabled = true
 motor_target_velocity = 3.49066
 
+[node name="HHUrtbox" type="Area2D" parent="Body/Head"]
+scale = Vector2(1.32, 1.33332)
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/Head/HHUrtbox"]
+scale = Vector2(3.56, 3.56)
+shape = SubResource("CircleShape2D_bj4fw")
+
 [node name="Tail" type="RigidBody2D" parent="Body"]
 position = Vector2(133, 172)
 
@@ -144,20 +149,4 @@ bias = 0.9
 motor_enabled = true
 motor_target_velocity = 3.49066
 
-[node name="HurtBox" type="Area2D" parent="Body" groups=["Player"]]
-position = Vector2(176, 193)
-collision_layer = 4
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/HurtBox"]
-position = Vector2(78, 34)
-shape = SubResource("RectangleShape2D_riyer")
-
-[node name="Floor" type="StaticBody2D" parent="."]
-position = Vector2(-3, 412)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
-position = Vector2(576, 0)
-shape = SubResource("RectangleShape2D_bj4fw")
-
-[connection signal="area_entered" from="Body/HurtBox" to="Body" method="_on_hurt_box_area_entered"]
+[connection signal="area_entered" from="Body/Head/HHUrtbox" to="Body" method="_on_hh_urtbox_area_entered"]

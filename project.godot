@@ -11,8 +11,10 @@ config_version=5
 [application]
 
 config/name="AlteredBeast"
+config/description="Modular animal based fighting game. Knock your opponent on the head until you win. In between matches customize your animal to make the strongest creature you can."
+run/main_scene="uid://dpmtt30ow51oj"
 config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://dualcwhhg0mj3"
 
 [autoload]
 
