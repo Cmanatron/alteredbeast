@@ -1,7 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dl22ij4x2xev4"]
+[gd_scene load_steps=13 format=3 uid="uid://dl22ij4x2xev4"]
 
 [ext_resource type="Script" uid="uid://dk4pirtiljgeg" path="res://animal.gd" id="1_stvu6"]
 [ext_resource type="Texture2D" uid="uid://dbapc4cbap015" path="res://icon.svg" id="2_23vr7"]
+[ext_resource type="Texture2D" uid="uid://dat18mhteaxws" path="res://AnimalSprites/Dog/PurePNGDog.png_0001_Layer-3.png" id="2_bj4fw"]
+[ext_resource type="Texture2D" uid="uid://b20btcsiiayl6" path="res://AnimalSprites/Dog/PurePNGDog.png_0000_Layer-2.png" id="4_riyer"]
+[ext_resource type="Texture2D" uid="uid://c2i5kpdqb8bbs" path="res://AnimalSprites/Dog/PurePNGDog.png_0003_Layer-5.png" id="5_dly54"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_23vr7"]
 size = Vector2(7.75, 7.5)
@@ -36,9 +39,8 @@ scale = Vector2(20, 20)
 shape = SubResource("RectangleShape2D_23vr7")
 
 [node name="Sprite2D" type="Sprite2D" parent="Body/BodyShape"]
-position = Vector2(0.0750006, -0.6125)
-scale = Vector2(0.065625, 0.0357422)
-texture = ExtResource("2_23vr7")
+scale = Vector2(0.00932736, 0.00932736)
+texture = ExtResource("2_bj4fw")
 
 [node name="FrontLegs" type="RigidBody2D" parent="Body"]
 position = Vector2(318, 249)
@@ -110,8 +112,7 @@ shape = SubResource("CircleShape2D_23vr7")
 
 [node name="Sprite2D" type="Sprite2D" parent="Body/Head/CollisionShape2D"]
 position = Vector2(-0.250007, -0.25)
-scale = Vector2(0.433594, 0.410156)
-texture = ExtResource("2_23vr7")
+texture = ExtResource("4_riyer")
 
 [node name="PinJoint2D" type="PinJoint2D" parent="Body/Head"]
 position = Vector2(-23, 14)
@@ -131,9 +132,9 @@ position = Vector2(-3.5, 0)
 shape = SubResource("RectangleShape2D_suy7h")
 
 [node name="Sprite2D" type="Sprite2D" parent="Body/Tail/CollisionShape2D"]
-position = Vector2(-1.5, 0.5)
-scale = Vector2(0.6875, 0.210937)
-texture = ExtResource("2_23vr7")
+position = Vector2(-0.499997, 0.5)
+scale = Vector2(3.73913, 1)
+texture = ExtResource("5_dly54")
 
 [node name="PinJoint2D" type="PinJoint2D" parent="Body/Tail"]
 position = Vector2(38, 1)

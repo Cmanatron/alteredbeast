@@ -14,6 +14,14 @@ config/name="AlteredBeast"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+AnimalController="*res://animalController.gd"
+
+[display]
+
+window/stretch/mode="canvas_items"
+
 [global_group]
 
 Player=""
