@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfm1hhhoeaqgt"]
+
+[ext_resource type="Script" uid="uid://cfgyr3bwodfgv" path="res://intermission.gd" id="1_kpofo"]
+
+[node name="Intermission" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_kpofo")
+
+[node name="Continue" type="Button" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "You're win. Continue"
+
+[connection signal="pressed" from="Continue" to="." method="_on_continue_pressed"]

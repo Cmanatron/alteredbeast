@@ -14,6 +14,11 @@ config/name="AlteredBeast"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[global_group]
+
+Player=""
+Enemy=""
+
 [input]
 
 MoveRight={

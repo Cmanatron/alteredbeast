@@ -1,7 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://dl22ij4x2xev4"]
+[gd_scene load_steps=9 format=3 uid="uid://cn85exy5o5y5r"]
 
-[ext_resource type="Script" uid="uid://dk4pirtiljgeg" path="res://animal.gd" id="1_stvu6"]
-[ext_resource type="Texture2D" uid="uid://dbapc4cbap015" path="res://icon.svg" id="2_23vr7"]
+[ext_resource type="Script" uid="uid://bv42akpenlwlc" path="res://enemy.gd" id="1_4gyqm"]
+[ext_resource type="Texture2D" uid="uid://dbapc4cbap015" path="res://icon.svg" id="2_qi2p4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_23vr7"]
 size = Vector2(7.75, 7.5)
@@ -19,16 +19,12 @@ radius = 31.0161
 size = Vector2(83, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_riyer"]
-size = Vector2(188, 110)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bj4fw"]
-size = Vector2(1172, 20)
+size = Vector2(321, 174)
 
 [node name="Animal" type="Node2D"]
 
-[node name="Body" type="CharacterBody2D" parent="."]
-motion_mode = 1
-script = ExtResource("1_stvu6")
+[node name="Body" type="CharacterBody2D" parent="." groups=["Enemy"]]
+script = ExtResource("1_4gyqm")
 
 [node name="BodyShape" type="CollisionShape2D" parent="Body"]
 position = Vector2(248, 246)
@@ -38,7 +34,7 @@ shape = SubResource("RectangleShape2D_23vr7")
 [node name="Sprite2D" type="Sprite2D" parent="Body/BodyShape"]
 position = Vector2(0.0750006, -0.6125)
 scale = Vector2(0.065625, 0.0357422)
-texture = ExtResource("2_23vr7")
+texture = ExtResource("2_qi2p4")
 
 [node name="FrontLegs" type="RigidBody2D" parent="Body"]
 position = Vector2(318, 249)
@@ -52,7 +48,7 @@ shape = SubResource("RectangleShape2D_ifcgm")
 [node name="Sprite2D" type="Sprite2D" parent="Body/FrontLegs/CollisionShape2D"]
 position = Vector2(-7.62939e-06, 2)
 scale = Vector2(0.351563, 0.595703)
-texture = ExtResource("2_23vr7")
+texture = ExtResource("2_qi2p4")
 
 [node name="FJoint" type="PinJoint2D" parent="Body/FrontLegs"]
 position = Vector2(6, 12)
@@ -83,7 +79,7 @@ shape = SubResource("RectangleShape2D_ifcgm")
 [node name="Sprite2D" type="Sprite2D" parent="Body/BackLegs/CollisionShape2D"]
 position = Vector2(1, 1)
 scale = Vector2(0.351563, 0.595703)
-texture = ExtResource("2_23vr7")
+texture = ExtResource("2_qi2p4")
 
 [node name="BJoint" type="PinJoint2D" parent="Body/BackLegs"]
 position = Vector2(-18, 10)
@@ -103,7 +99,7 @@ collision_mask = 4
 shape = SubResource("CircleShape2D_ifcgm")
 
 [node name="Head" type="RigidBody2D" parent="Body"]
-position = Vector2(357, 169)
+position = Vector2(153, 166)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Body/Head"]
 shape = SubResource("CircleShape2D_23vr7")
@@ -111,10 +107,10 @@ shape = SubResource("CircleShape2D_23vr7")
 [node name="Sprite2D" type="Sprite2D" parent="Body/Head/CollisionShape2D"]
 position = Vector2(-0.250007, -0.25)
 scale = Vector2(0.433594, 0.410156)
-texture = ExtResource("2_23vr7")
+texture = ExtResource("2_qi2p4")
 
 [node name="PinJoint2D" type="PinJoint2D" parent="Body/Head"]
-position = Vector2(-23, 14)
+position = Vector2(21, 26)
 node_a = NodePath("../..")
 node_b = NodePath("..")
 bias = 0.9
@@ -124,39 +120,32 @@ motor_enabled = true
 motor_target_velocity = 3.49066
 
 [node name="Tail" type="RigidBody2D" parent="Body"]
-position = Vector2(133, 172)
+position = Vector2(387, 166)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Body/Tail"]
-position = Vector2(-3.5, 0)
+position = Vector2(-13, 1)
 shape = SubResource("RectangleShape2D_suy7h")
 
 [node name="Sprite2D" type="Sprite2D" parent="Body/Tail/CollisionShape2D"]
-position = Vector2(-1.5, 0.5)
+position = Vector2(3, 0)
 scale = Vector2(0.6875, 0.210937)
-texture = ExtResource("2_23vr7")
+texture = ExtResource("2_qi2p4")
 
 [node name="PinJoint2D" type="PinJoint2D" parent="Body/Tail"]
-position = Vector2(38, 1)
+position = Vector2(-60, 7)
 node_a = NodePath("../..")
 node_b = NodePath("..")
 bias = 0.9
 motor_enabled = true
 motor_target_velocity = 3.49066
 
-[node name="HurtBox" type="Area2D" parent="Body" groups=["Player"]]
+[node name="HurtBox" type="Area2D" parent="Body"]
 position = Vector2(176, 193)
 collision_layer = 4
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Body/HurtBox"]
-position = Vector2(78, 34)
+position = Vector2(80.5, 37)
 shape = SubResource("RectangleShape2D_riyer")
-
-[node name="Floor" type="StaticBody2D" parent="."]
-position = Vector2(-3, 412)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
-position = Vector2(576, 0)
-shape = SubResource("RectangleShape2D_bj4fw")
 
 [connection signal="area_entered" from="Body/HurtBox" to="Body" method="_on_hurt_box_area_entered"]
